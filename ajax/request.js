@@ -73,9 +73,65 @@ const fetchAsync = () => {
       });
       $fetch.appendChild($fragment);
     } catch (error) {
-      
-      let message = `${error.status}: ${error.statusText !== "" ? error.statusText : "Ocurrió un error" }`;
+      let message = `${error.status}: ${
+        error.statusText !== "" ? error.statusText : "Ocurrió un error"
+      }`;
       $fetch.innerHTML = message;
+    }
+  };
+
+  getData();
+};
+
+const axiosRequest = () => {
+  const $axios = document.getElementById("axios"),
+    $fragment = document.createDocumentFragment();
+
+  axios
+    .get("https://jsonplaceholder.typicode.com/albums")
+    .then((res) => res.data)
+    .then((json) => {
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = el.title;
+        $fragment.appendChild($li);
+      });
+      $axios.appendChild($fragment);
+    })
+    .catch((error) => {
+      let message = `${error.response.status}: ${
+        error.response.statusText !== ""
+          ? error.response.statusText
+          : "Ocurrió un error"
+      }`;
+      $axios.innerHTML = message;
+    });
+};
+
+const axiosRequestAsync = () => {
+  const $axiosAsync = document.getElementById("axios-async"),
+    $fragment = document.createDocumentFragment();
+
+  const getData = async () => {
+    try {
+      let response = await axios.get(
+          "https://jsonplaceholder.typicode.com/todos"
+        ),
+        json = await response.data;
+
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = el.title;
+        $fragment.appendChild($li);
+      });
+      $axiosAsync.appendChild($fragment);
+    } catch (error) {
+      let message = `${error.response.status}: ${
+        error.response.statusText !== ""
+          ? error.response.statusText
+          : "Ocurrió un error"
+      }`;
+      $axiosAsync.innerHTML = message;
     }
   };
 
