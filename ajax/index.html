@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script defer src="./request.js"></script>
     <title>AJAX</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <h2>XMLHttpRequest</h2>
-        <button onclick="bringUsers();" >Traer los usuarios</button>
-        <ol id="xhr">
-
-        </ol>
+      <h2>XMLHttpRequest</h2>
+      <button onclick="bringUsers();">Traer los usuarios</button>
+      <ol id="xhr"></ol>
+      <hr>
+      <h2>Fetch API</h2>
+      <button onclick="bringCommentsWithFetch();">Traer los comentarios</button>
+      <ol id="fetch"></ol>
+      <h2>Fetch with Async</h2>
+      <button onclick="fetchAsync();">Traer los posts</button>
+      <ol id="fetch-async"></ol>
     </div>
-</body>
+  </body>
 </html>

@@ -23,4 +23,61 @@ const bringUsers = () => {
 
   xhr.open("GET", "https://jsonplaceholder.typicode.com/users", true);
   xhr.send();
-}
+};
+
+const bringCommentsWithFetch = () => {
+  const $fetch = document.getElementById("fetch"),
+    $fragment = document.createDocumentFragment();
+
+  fetch("https://jsonplaceholder.typicode.com/comments")
+    .then((res) => {
+      return res.ok
+        ? res.json()
+        : Promise.reject(`${res.status}: ${res.statusText}`);
+    })
+    .then((json) => {
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = `${el.name} from ${el.email}`;
+        $fragment.appendChild($li);
+      });
+      $fetch.appendChild($fragment);
+    })
+    .catch((e) => {
+      const $b = document.createElement("b");
+      $b.innerHTML = e !== undefined ? e : "Error imprevisto";
+      $fetch.appendChild($b);
+    });
+};
+
+const fetchAsync = () => {
+  const $fetch = document.getElementById("fetch-async"),
+    $fragment = document.createDocumentFragment();
+
+  const getData = async () => {
+    try {
+      let response = await fetch("https://jsonplaceholder.typicode.com/post"),
+        json = await response.json();
+
+      if (!response.ok) {
+        throw {
+          status: response.status,
+          statusText: response.statusText,
+        };
+      }
+
+      json.forEach((el) => {
+        const $li = document.createElement("li");
+        $li.innerHTML = `${el.title} --> ${el.body}`;
+        $fragment.appendChild($li);
+      });
+      $fetch.appendChild($fragment);
+    } catch (error) {
+      
+      let message = `${error.status}: ${error.statusText !== "" ? error.statusText : "Ocurrió un error" }`;
+      $fetch.innerHTML = message;
+    }
+  };
+
+  getData();
+};
